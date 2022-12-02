@@ -3,7 +3,6 @@ package fr.zeguigui.adventofcode;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 import static java.lang.System.out;
 
 public class Exercice2 {
@@ -20,17 +19,12 @@ public class Exercice2 {
             // Draw
             return elf + DRAW;
         }
-        switch (elf) {
-            case ROCK:
-                return outcome + ((outcome == WON) ? PAPER : SCISSORS );
-            case PAPER:
-                return outcome + ((outcome == WON) ? SCISSORS : ROCK );
-            case SCISSORS:
-                return outcome + ((outcome == WON) ? ROCK : PAPER );
-        }
-
-        // Should never happen!
-        throw new RuntimeException("Invalid input!");
+        return switch (elf) {
+            case ROCK     -> outcome + ((outcome == WON) ? PAPER : SCISSORS );
+            case PAPER    -> outcome + ((outcome == WON) ? SCISSORS : ROCK );
+            case SCISSORS -> outcome + ((outcome == WON) ? ROCK : PAPER );
+            default -> throw new RuntimeException("Invalid input!");
+        };
     }
 
     public static void main(String[] args) {

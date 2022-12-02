@@ -18,17 +18,12 @@ public class Exercice1 {
             // Draw
             return self + DRAW;
         }
-        switch (elf) {
-            case ROCK:
-                return self + ((self == PAPER) ? WON : LOSS);
-            case PAPER:
-                return self + ((self == ROCK) ? LOSS : WON);
-            case SCISSORS:
-                return self + ((self == ROCK) ? WON : LOSS);
-        }
-
-        // Should never happen!
-        throw new RuntimeException("Invalid input!");
+        return switch (elf) {
+            case ROCK     ->  self + ((self == PAPER) ? WON : LOSS);
+            case PAPER    -> self + ((self == ROCK) ? LOSS : WON);
+            case SCISSORS -> self + ((self == ROCK) ? WON : LOSS);
+            default -> throw new RuntimeException("Invalid input!");
+        };
     }
 
     public static void main(String[] args) {
