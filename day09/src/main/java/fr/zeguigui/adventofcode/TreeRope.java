@@ -3,6 +3,7 @@ package fr.zeguigui.adventofcode;
 import java.util.HashSet;
 import java.util.Set;
 
+// Can be replaced with TreeRope2(1)!
 public class TreeRope {
 
     private Coordinate head;
