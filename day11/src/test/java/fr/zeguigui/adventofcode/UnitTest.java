@@ -248,10 +248,12 @@ class UnitTest {
 
     @Test
     void test2_20Rounds() {
-        BigMonkey monkey0 = new BigMonkey(List.of(79,98), x -> x , x -> x.multiply(new BigInteger("19")), x -> x.mod(new BigInteger("23")).longValue() == 0);
-        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), x -> x , x -> x.add(new BigInteger("6")), x -> x.mod(new BigInteger("19")).longValue() == 0);
-        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),x -> x , x -> x.multiply(x), x -> x.mod(new BigInteger("13")).longValue() == 0);
-        BigMonkey monkey3 = new BigMonkey(List.of(74), x -> x , x -> x.add(new BigInteger("3")), x -> x.mod(new BigInteger("17")).longValue() == 0);
+        int spaceSize = 23 * 19 * 13 * 17;
+        Function<BigInteger, BigInteger> worryAdjust = x -> x.mod(BigInteger.valueOf(spaceSize));
+        BigMonkey monkey0 = new BigMonkey(List.of(79,98), worryAdjust, x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
+        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), worryAdjust , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
+        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),worryAdjust , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
+        BigMonkey monkey3 = new BigMonkey(List.of(74), worryAdjust, x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
 
         monkey0.setTargetMonkeys(monkey2, monkey3);
         monkey1.setTargetMonkeys(monkey2, monkey0);
@@ -273,10 +275,12 @@ class UnitTest {
 
     @Test
     void test2_1000Rounds() {
-        BigMonkey monkey0 = new BigMonkey(List.of(79,98), x -> x , x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
-        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), x -> x , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
-        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),x -> x , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
-        BigMonkey monkey3 = new BigMonkey(List.of(74), x -> x , x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
+        int spaceSize = 23 * 19 * 13 * 17;
+        Function<BigInteger, BigInteger> worryAdjust = x -> x.mod(BigInteger.valueOf(spaceSize));
+        BigMonkey monkey0 = new BigMonkey(List.of(79,98), worryAdjust, x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
+        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), worryAdjust , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
+        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),worryAdjust , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
+        BigMonkey monkey3 = new BigMonkey(List.of(74), worryAdjust, x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
 
         monkey0.setTargetMonkeys(monkey2, monkey3);
         monkey1.setTargetMonkeys(monkey2, monkey0);
@@ -297,13 +301,13 @@ class UnitTest {
     }
 
     @Test
-    @Disabled
     void test2_10000_Rounds() {
-        // java.lang.ArithmeticException: BigInteger would overflow supported range... there must me something better to do!
-        BigMonkey monkey0 = new BigMonkey(List.of(79,98), x -> x , x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
-        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), x -> x , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
-        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),x -> x , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
-        BigMonkey monkey3 = new BigMonkey(List.of(74), x -> x , x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
+        int spaceSize = 23 * 19 * 13 * 17;
+        Function<BigInteger, BigInteger> worryAdjust = x -> x.mod(BigInteger.valueOf(spaceSize));
+        BigMonkey monkey0 = new BigMonkey(List.of(79,98), worryAdjust, x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
+        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), worryAdjust , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
+        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),worryAdjust , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
+        BigMonkey monkey3 = new BigMonkey(List.of(74), worryAdjust, x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
 
         monkey0.setTargetMonkeys(monkey2, monkey3);
         monkey1.setTargetMonkeys(monkey2, monkey0);
@@ -324,12 +328,13 @@ class UnitTest {
     }
 
     @Test
-    @Disabled
     void test2_BusinessActivit() {
-        BigMonkey monkey0 = new BigMonkey(List.of(79,98), x -> x , x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
-        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), x -> x , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
-        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),x -> x , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
-        BigMonkey monkey3 = new BigMonkey(List.of(74), x -> x , x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
+        int spaceSize = 23 * 19 * 13 * 17;
+        Function<BigInteger, BigInteger> worryAdjust = x -> x.mod(BigInteger.valueOf(spaceSize));
+        BigMonkey monkey0 = new BigMonkey(List.of(79,98), worryAdjust, x -> x.multiply(BigInteger.valueOf(19)), x -> x.mod(BigInteger.valueOf(23)).equals(BigInteger.ZERO));
+        BigMonkey monkey1 = new BigMonkey(List.of(54,65,75,74), worryAdjust , x -> x.add(BigInteger.valueOf(6)), x -> x.mod(BigInteger.valueOf(19)).equals(BigInteger.ZERO));
+        BigMonkey monkey2 = new BigMonkey(List.of(79,60,97),worryAdjust , x -> x.multiply(x), x -> x.mod(BigInteger.valueOf(13)).equals(BigInteger.ZERO));
+        BigMonkey monkey3 = new BigMonkey(List.of(74), worryAdjust, x -> x.add(BigInteger.valueOf(3)), x -> x.mod(BigInteger.valueOf(17)).equals(BigInteger.ZERO));
 
         monkey0.setTargetMonkeys(monkey2, monkey3);
         monkey1.setTargetMonkeys(monkey2, monkey0);
